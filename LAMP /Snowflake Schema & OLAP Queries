@@ -1,0 +1,50 @@
+-- Snowflake Schema Tables
+CREATE TABLE Region_Dim (
+    RegionID INT PRIMARY KEY,
+    RegionName VARCHAR(50)
+);
+
+CREATE TABLE Customer_Dim (
+    CustomerID INT PRIMARY KEY,
+    AgeGroup VARCHAR(20),
+    RegionID INT,
+    FOREIGN KEY (RegionID) REFERENCES Region_Dim(RegionID)
+);
+
+CREATE TABLE Category_Dim (
+    CategoryID INT PRIMARY KEY,
+    CategoryName VARCHAR(50)
+);
+
+CREATE TABLE Product_Dim (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(50),
+    CategoryID INT,
+    FOREIGN KEY (CategoryID) REFERENCES Category_Dim(CategoryID)
+);
+
+CREATE TABLE Sales_Fact (
+    SaleID INT PRIMARY KEY,
+    CustomerID INT,
+    ProductID INT,
+    Revenue DECIMAL(10,2),
+    FOREIGN KEY (CustomerID) REFERENCES Customer_Dim(CustomerID),
+    FOREIGN KEY (ProductID) REFERENCES Product_Dim(ProductID)
+);
+
+-- i) Roll-up: Total sales revenue by region
+SELECT r.RegionName, SUM(s.Revenue) AS Total_Revenue
+FROM Sales_Fact s
+JOIN Customer_Dim c ON s.CustomerID = c.CustomerID
+JOIN Region_Dim r ON c.RegionID = r.RegionID
+GROUP BY ROLLUP(r.RegionName);
+
+-- ii) Dice: Sales across specific age groups and product categories
+SELECT c.AgeGroup, cat.CategoryName, SUM(s.Revenue) AS Total_Revenue
+FROM Sales_Fact s
+JOIN Customer_Dim c ON s.CustomerID = c.CustomerID
+JOIN Product_Dim p ON s.ProductID = p.ProductID
+JOIN Category_Dim cat ON p.CategoryID = cat.CategoryID
+WHERE c.AgeGroup IN ('18-25', '26-35')
+  AND cat.CategoryName IN ('Electronics', 'Apparel')
+GROUP BY c.AgeGroup, cat.CategoryName;
