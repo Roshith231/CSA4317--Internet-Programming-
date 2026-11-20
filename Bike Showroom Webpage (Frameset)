@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Apex Bike Showroom</title>
+</head>
+<frameset rows="16%, 84%" border="2">
+    <frame name="topFrame" scrolling="no" noresize src="data:text/html;charset=utf-8,
+        <html><body style='background:%231a1a1a;color:%23ff5722;font-family:Arial;text-align:center;margin:0;padding-top:15px;'>
+        <h1>APEX BIKE SHOWROOM</h1></body></html>">
+    <frameset cols="26%, 74%">
+        <frame name="leftFrame" src="data:text/html;charset=utf-8,
+            <html><body style='background:%23f4f4f4;font-family:Arial;padding:15px;'>
+            <h3>Brands</h3>
+            <ul style='list-style:none;padding:0;'>
+                <li style='margin:10px 0;'><a href='%23yamaha' target='rightFrame'>Yamaha</a></li>
+                <li style='margin:10px 0;'><a href='%23kawasaki' target='rightFrame'>Kawasaki</a></li>
+                <li style='margin:10px 0;'><a href='%23royal' target='rightFrame'>Royal Enfield</a></li>
+            </ul></body></html>">
+        <frame name="rightFrame" src="data:text/html;charset=utf-8,
+            <html><body style='font-family:Arial;padding:20px;'>
+            <div id='yamaha' style='margin-bottom:300px;'><h2>Yamaha</h2><p><b>R15 V4:</b> 155cc, 18.4 HP, 6-Speed</p><p><b>MT-15:</b> 155cc, Dual-Channel ABS</p></div>
+            <div id='kawasaki' style='margin-bottom:300px;'><h2>Kawasaki</h2><p><b>Ninja ZX-10R:</b> 998cc, 203 HP</p><p><b>Z900:</b> 948cc, 125 HP, TFT Display</p></div>
+            <div id='royal' style='margin-bottom:300px;'><h2>Royal Enfield</h2><p><b>GT 650:</b> 648cc Twin, 47 HP</p><p><b>Himalayan 450:</b> 452cc, 40 HP</p></div>
+            </body></html>">
+    </frameset>
+</frameset>
+</html>
